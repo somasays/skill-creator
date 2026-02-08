@@ -1,6 +1,6 @@
 # Skill Creator
 
-A Claude skill that creates other Claude skills. Drop this into your `.claude/skills/` directory and Claude learns how to build production-quality skills from scratch.
+A Claude skill that creates other Claude skills. Add it to your environment and Claude learns how to build production-quality skills from scratch.
 
 ## What Are Skills?
 
@@ -19,43 +19,28 @@ A skill is a folder with a `SKILL.md` file and optional supporting resources (sc
 
 ## Installation
 
+This skill works best as a **user-level skill** — available across all your conversations and projects rather than scoped to a single project.
+
+### Claude Desktop App
+
+1. Go to **Settings → Capabilities → Add skills**
+2. Upload the skill folder containing `SKILL.md` and the supporting files
+
 ### Claude Code (CLI)
 
 ```bash
-# Clone and copy to your global skills
-git clone git@github.com:somasays/skill-creator.git
-mkdir -p ~/.claude/skills/create-skills
-cp skill-creator/SKILL.md ~/.claude/skills/create-skills/
-cp skill-creator/description-examples.md ~/.claude/skills/create-skills/
-cp skill-creator/structure-patterns.md ~/.claude/skills/create-skills/
-cp skill-creator/skill-template.md ~/.claude/skills/create-skills/
-
-# Or for a specific project
-mkdir -p your-project/.claude/skills/create-skills
-cp skill-creator/* your-project/.claude/skills/create-skills/
+git clone git@github.com:somasays/skill-creator.git ~/.claude/skills/skill-creator
 ```
 
-Then just tell Claude: "Create a skill for X" and it follows the full workflow.
+Then use the `/skill-creator` slash command with a flag to specify where the generated skill should live:
 
-### Claude Desktop App (Recommended for Skill Creation)
+```bash
+# Create a user-level skill (available across all projects)
+/skill-creator --user "Analytics with DuckDB"
 
-Claude Desktop is ideal for creating skills because the process is research-heavy and iterative — Desktop maintains longer conversations and has native Project Knowledge support.
-
-**Setup:**
-
-1. Open **Claude Desktop** and create a new Project (or open an existing one)
-2. Click the **project name** at the top to open Project Settings
-3. Under **"Project Knowledge"**, click **"Add content"**
-4. Paste the contents of `SKILL.md` (and optionally the other files for reference)
-5. In **Project Instructions**, add:
-   ```
-   When I ask you to create a skill, follow the skill creation workflow
-   in your project knowledge. Use the description examples and structure
-   patterns as reference when drafting.
-   ```
-6. Start a conversation: "Create a skill for [your use case]"
-
-**Why Desktop for skill creation?** The process involves researching documentation, interviewing the user about requirements, drafting, testing, and iterating. Desktop's longer context persistence and file attachment features make this workflow smoother than CLI.
+# Create a project-level skill (scoped to current project)
+/skill-creator --project "Analytics with DuckDB"
+```
 
 ## Example Use Cases
 
@@ -112,4 +97,4 @@ Found patterns that make skills better? PRs welcome.
 
 ## License
 
-MIT
+Apache License 2.0 — see [LICENSE](LICENSE) for details.
